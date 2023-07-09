@@ -1,9 +1,7 @@
 package com.example.a05recyclerviewexample;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +10,7 @@ import com.example.a05recyclerviewexample.databinding.ItemBinding;
 
 import java.util.List;
 
-public class WordAparter extends RecyclerView.Adapter<WordAparter.ViewHolder> {
+public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
 
     private ItemBinding binding;
 
@@ -20,7 +18,7 @@ public class WordAparter extends RecyclerView.Adapter<WordAparter.ViewHolder> {
 
     @NonNull
     @Override
-    public WordAparter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WordAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         binding = binding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
@@ -28,7 +26,7 @@ public class WordAparter extends RecyclerView.Adapter<WordAparter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WordAparter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WordAdapter.ViewHolder holder, int position) {
         
         String item = words.get(position);
         holder.showInfo(item);
@@ -38,6 +36,10 @@ public class WordAparter extends RecyclerView.Adapter<WordAparter.ViewHolder> {
     @Override
     public int getItemCount() {
         return words.size();
+    }
+
+    public void setData(List<String> words) {
+        this.words = words;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
