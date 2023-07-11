@@ -8,38 +8,42 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.a05recyclerviewexample.databinding.ItemBinding;
 
 import java.util.List;
 
-public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private ItemBinding binding;
 
-    private List<String> words;
+    private List<Item> items;
 
     @NonNull
     @Override
-    public WordAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         binding = binding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WordAdapter.ViewHolder holder, int position) {
-        
-        String item = words.get(position);
+    public void onBindViewHolder(@NonNull ItemAdapter.ViewHolder holder, int position) {
+
+        Item item = items.get(position);
         holder.showInfo(item);
+
     }
 
     @Override
     public int getItemCount() {
-        return words.size();
+
+        return items.size();
     }
 
-    public void setData(List<String> words) {
-        this.words = words;
+    public void setData(List<Item> item) {
+
+        this.items = item;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -51,19 +55,21 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder> {
             itemView.setOnClickListener(this);
         }
 
-        public void showInfo(String words) {
-            binding.tvWords.setText(words);
+        public void showInfo(Item item) {
+
+            Glide.with(itemView.getContext()).load(item.getUrl()).into(itemBinding.ivItem);
+            binding.tvItem.setText(item.getName());
         }
 
         @Override
         // Se asigna comportamiento al método.
         public void onClick(View v) {
             int position = getLayoutPosition();
-            String item = words.get(position);
+            Item item = items.get(position);
 
             // Se asigna la palabra solicitada.
-            words.set(position, "Clicked " + item);
-            notifyDataSetChanged();
+
+           // notifyDataSetChanged();
             Toast.makeText(itemView.getContext(), "You clicked " + item, Toast.LENGTH_SHORT).show();
 
         }
