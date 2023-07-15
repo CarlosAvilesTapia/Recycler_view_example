@@ -1,14 +1,13 @@
 package com.example.a05recyclerviewexample;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.a05recyclerviewexample.databinding.FragmentFirstBinding;
 
@@ -22,7 +21,6 @@ List<Item> items = getItemList();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -47,15 +45,6 @@ List<Item> items = getItemList();
         binding.rvList.addItemDecoration(new DividerItemDecoration(binding.rvList.getContext(),
                 DividerItemDecoration.VERTICAL));
 
-        // Se agrega el botón flotante.
-        binding.fabAddWord.setOnClickListener(v -> {
-
-            // Agrega elemento al listado.
-          //  items.add("Word " + items.size());
-            binding.rvList.getAdapter().notifyItemInserted(items.size());
-            binding.rvList.smoothScrollToPosition(items.size());
-        });
-
         return binding.getRoot();
     }
 
@@ -72,7 +61,7 @@ List<Item> items = getItemList();
                 ,"https://unsplash.com/photos/LfJx0gqqiEc/download?force=true&w=640");
         listItem.add(item03);
         Item item04 = new Item("Huper by Joshua Earle"
-                ,"https://unsplash.com/photos/_p8gVNNsWw4/download?force=true&w=640");
+                ,"https://unsplash.com/photos/Z8XhtlEIxto/download?ixid=M3wxMjA3fDB8MXxhbGx8NHx8fHx8fDJ8fDE2ODkyMjk0OTF8&force=true&w=640");
         listItem.add(item04);
         Item item05 = new Item("Melnychuk Nataliya"
                 ,"https://unsplash.com/photos/rnPGCe7LsQo/download?force=true&w=640");
@@ -84,7 +73,7 @@ List<Item> items = getItemList();
                 ,"https://unsplash.com/photos/kZH8X0q4Nvo/download?force=true&w=640");
         listItem.add(item07);
         Item item08 = new Item("John Fornander"
-                ,"https://unsplash.com/photos/iNqJxVOceI/download?force=true&w=640");
+                ,"https://unsplash.com/photos/alY6_OpdwRQ/download?ixid=M3wxMjA3fDB8MXxzZWFyY2h8Mnx8amFwYW58ZW58MHx8fHwxNjg5MTg4MzcxfDA&force=true&w=640");
         listItem.add(item08);
         Item item09 = new Item("Parker Coffman"
                 ,"https://unsplash.com/photos/mNWrQ9O6KZw/download?force=true&w=640");
@@ -96,7 +85,7 @@ List<Item> items = getItemList();
                 ,"https://unsplash.com/photos/l8BvDmt8Ac4/download?force=true&w=640");
         listItem.add(item11);
         Item item12 = new Item("Wesley Armstrong"
-                ,"https://unsplash.com/photos/q0wqYpyWDpc/download?force=true&w=640");
+                ,"https://unsplash.com/photos/P3TOWrqr6Ik/download?ixid=M3wxMjA3fDB8MXxhbGx8N3x8fHx8fDJ8fDE2ODkyMjk0OTF8&force=true&w=640");
         listItem.add(item12);
 
         return listItem;

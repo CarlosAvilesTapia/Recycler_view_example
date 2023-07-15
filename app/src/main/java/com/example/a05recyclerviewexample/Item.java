@@ -1,6 +1,6 @@
 package com.example.a05recyclerviewexample;
 
-public class Item {
+public class Item { // Creación de clase Item con los atributos, constructor, getters y setters.
 
     private String name;
 

@@ -1,11 +1,13 @@
 package com.example.a05recyclerviewexample;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -15,15 +17,14 @@ import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-    private ItemBinding binding;
-
     private List<Item> items;
 
     @NonNull
     @Override
     public ItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        binding = binding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        ItemBinding binding = ItemBinding.inflate(LayoutInflater.from(parent.getContext()),
+                parent, false);
         return new ViewHolder(binding);
     }
 
@@ -46,32 +47,49 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         this.items = item;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener, View.OnLongClickListener {
 
         private ItemBinding itemBinding;
         public ViewHolder(@NonNull ItemBinding binding) {
+
             super(binding.getRoot());
             itemBinding = binding;
-            itemView.setOnClickListener(this);
+            itemBinding.cvItem.setOnClickListener(this); // Se asigna binding para click.
+
+            // Se asigna binding al mismo elemento para un long click.
+            itemBinding.cvItem.setOnLongClickListener(this);
         }
 
         public void showInfo(Item item) {
 
+            // Se implementa Glide al adaptador.
             Glide.with(itemView.getContext()).load(item.getUrl()).into(itemBinding.ivItem);
-            binding.tvItem.setText(item.getName());
+            itemBinding.tvItem.setText(item.getName());
         }
 
         @Override
-        // Se asigna comportamiento al método.
-        public void onClick(View v) {
+        public void onClick(View v) { // Se asigna funcionalidad al click
+
+            int position = getLayoutPosition();
+            Item item = items.get(position);
+            Toast.makeText(itemView.getContext(), "You clicked the photo of " + item.getName(), Toast.LENGTH_SHORT).show();
+
+        }
+        @Override
+        public boolean onLongClick(View v) { // Se asigna funcionalidad al long click.
+
             int position = getLayoutPosition();
             Item item = items.get(position);
 
-            // Se asigna la palabra solicitada.
+            // Se implementa navigation para pasar información al SecondFragment.
+            Bundle bundle = new Bundle();
+            bundle.putString("Url", item.getUrl());
+            bundle.putString("Name", item.getName());
+            Navigation.findNavController(itemBinding.getRoot()).
+                    navigate(R.id.action_firstFragment_to_secondFragment, bundle);
 
-           // notifyDataSetChanged();
-            Toast.makeText(itemView.getContext(), "You clicked " + item, Toast.LENGTH_SHORT).show();
-
+            return true;
         }
     }
 }
